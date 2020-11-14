@@ -26,7 +26,6 @@
 /.idea/compiler.xml
 
 #Trashy
-
 .DS_Store
 /build
 /captures

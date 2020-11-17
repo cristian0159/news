@@ -38,5 +38,6 @@ public class ContratosImpl implements Contratos {
     @Override
     public void saveNews(News news) {
 
+
     }
 }

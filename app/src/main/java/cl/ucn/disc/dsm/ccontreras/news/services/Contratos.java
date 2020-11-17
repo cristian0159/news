@@ -29,4 +29,10 @@ public interface Contratos {
      * @return la lista de noticias
      */
     List<News> retrieveNews(Integer size);
+
+    /**
+     * Guarda una noticia dentro del sistema
+     * @param news para guardar
+     */
+    void saveNews(News news);
 }

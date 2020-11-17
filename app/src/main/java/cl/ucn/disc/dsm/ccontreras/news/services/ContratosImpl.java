@@ -34,4 +34,9 @@ public class ContratosImpl implements Contratos {
         // TODO: Add the facker news to te list
         return news;
     }
+
+    @Override
+    public void saveNews(News news) {
+
+    }
 }

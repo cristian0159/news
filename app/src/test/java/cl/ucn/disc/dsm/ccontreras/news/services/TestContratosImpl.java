@@ -31,7 +31,7 @@ import cl.ucn.disc.dsm.ccontreras.news.model.News;
  */
 public class TestContratosImpl {
     /**
-     * el logger
+     * the logger
      */
     private static final Logger log = LoggerFactory.getLogger(TestContratosImpl.class);
 

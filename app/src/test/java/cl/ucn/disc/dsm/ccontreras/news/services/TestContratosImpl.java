@@ -38,6 +38,8 @@ public class TestContratosImpl {
     /**
      *el test para las noticias
      */
+
+
     @Test
     public void testRetrieveNews(){
 
@@ -56,6 +58,7 @@ public class TestContratosImpl {
     /**
      * Muestra el faker
      */
+
     @Test
     public void testFaker(){
 

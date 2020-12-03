@@ -1,5 +1,23 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+//Creacion de lo numeros que corresponden a la fecha para la version
+def YEAR_WEEK   = new Date().format("yyww").toInteger()
+def DAY         = new Date().format("u").toInteger()
+def HOUR_MINUTE = new Date().format("HHmm").toInteger()
+
+//Contruccion de la version
+def BUILD_TIMESTAMP = 100000 * YEAR_WEEK + 10000 * DAY + HOUR_MINUTE
+
+//Versiones
+def MAJOR = 1
+def MINOR = 0
+def PATCH = BUILD_TIMESTAMP
+def NAME = "Snake"
+
+// La contruccion de la version
+def BUILD_VERSION = "${NAME}-${MAJOR}.${MINOR}.${PATCH}"
+
+//APLICACION DE LOS PLUGING DE VERSIONES
 apply plugin: 'com.github.ben-manes.versions'
 
 buildscript {
@@ -9,7 +27,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.1'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.34.0'
 
         
@@ -19,6 +37,14 @@ buildscript {
 }
 
 allprojects {
+
+    ext.buildTimestamp = BUILD_TIMESTAMP
+    ext.buildVersion = BUILD_VERSION
+
+    //usar losdirectrio stemporalmente para la contruccion
+    buildDir = "${System.env.TEMP}//gradle-build//${rootProject.name}//${project.name}"
+    logger.lifecyrcle("Version(${BUILD_VERSION}) BuildDir(${buildDir})")
+
     repositories {
         google()
         jcenter()

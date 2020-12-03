@@ -22,15 +22,37 @@
 
 package cl.ucn.disc.dsm.ccontreras.news;
 
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+
+import cl.ucn.disc.dsm.ccontreras.news.model.News;
+import cl.ucn.disc.dsm.ccontreras.news.services.Contratos;
+import cl.ucn.disc.dsm.ccontreras.news.services.ContratosImplNewsApi;
 
 /**
  * La Clase Main
  * @author Crsitian Contreras F.
  */
 public class MainActivity extends AppCompatActivity {
+
+    /**
+     * El logger
+     */
+    private static final Logger log = LoggerFactory.getLogger(MainActivity.class);
+
+    /**
+     * la ListView
+     */
+    protected ListView listView;
 
     /**
      * OnCreate
@@ -41,5 +63,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        log.debug("onCreate..");
+        setContentView(R.layout.activity_main);
+
+        this.listView =  findViewById(R.id.am_lv_news);
+        // obtener la noticia en el hilo del background
+        AsyncTask.execute(()->{
+            //Usa los contratos para adquirir las noticias
+            Contratos contratos = new ContratosImplNewsApi("1feb332847ae452aa35f7c84ef56f55c");
+
+            //Obtiene las noticias de NewsApi(internet)
+            List<News> listNews = contratos.retrieveNews(30);
+
+            //Contruccion de un simple adaptador para mostrar la lista de noticias(String)
+            ArrayAdapter<String> adapter = new ArrayAdapter(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    listNews
+            );
+            this.listView.setAdapter(adapter);
+        });
     }
 }
